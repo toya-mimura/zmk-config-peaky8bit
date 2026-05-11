@@ -1,0 +1,5 @@
+config SHIELD_PEAKY8BIT_LEFT
+    def_bool $(shields_list_contains,peaky8bit_left)
+
+config SHIELD_PEAKY8BIT_RIGHT
+    def_bool $(shields_list_contains,peaky8bit_right)
