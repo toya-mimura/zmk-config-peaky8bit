@@ -18,3 +18,8 @@
 #     artifact-name: corne_left_with_studio
 #
 ---
+include:
+  - board: seeeduino_xiao_ble
+    shield: peaky8bit_left
+  - board: seeeduino_xiao_ble
+    shield: peaky8bit_right
