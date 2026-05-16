@@ -3,11 +3,23 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        // Test combo: all 8 keys pressed together -> Shift+Z (capital Z)
+        // Key positions: left = 0,1,2,3 / right = 4,5,6,7
+        combo_all8 {
+            timeout-ms = <100>;
+            key-positions = <0 1 2 3 4 5 6 7>;
+            bindings = <&kp LS(Z)>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-            bindings = <
+            bindings = 
                 &kp A   &kp B   &kp C   &kp D
                 &kp N1  &kp N2  &kp N3  &kp N4
             >;
