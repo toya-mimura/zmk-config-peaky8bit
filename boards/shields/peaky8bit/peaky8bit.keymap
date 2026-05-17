@@ -2,19 +2,101 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-/ {
-    combos {
-        compatible = "zmk,combos";
+// =============================================================================
+// Peaky 8-bit minimal test keymap
+// Goal: verify that the chord -> macro + layer-arming approach works.
+//
+// Test chords:
+//   0x21 (bit 0010 0001) = pos 2 + pos 7  -> "か" (ka) on L0, "が" (ga) on L1
+//   0x01 (bit 0000 0001) = pos 7           -> arm L1 (shift)
+//   0x0E (bit 0000 1110) = pos 4+5+6       -> cancel back to L0
+//
+// Key-position to bit mapping (confirmed):
+//   Left  (central):    pos 0=bit7, pos 1=bit6, pos 2=bit5, pos 3=bit4
+//   Right (peripheral): pos 4=bit3, pos 5=bit2, pos 6=bit1, pos 7=bit0
+//
+// PC side prerequisite for this test:
+//   IME ON + romaji input mode (so that "ka" -> か, "ga" -> が)
+// =============================================================================
 
-        // Test combo: all 8 keys pressed together -> Shift+Z (capital Z)
-        // Key positions: left = 0,1,2,3 / right = 4,5,6,7
-        combo_all8 {
-            timeout-ms = <100>;
-            key-positions = <0 1 2 3 4 5 6 7>;
-            bindings = <&kp LS(Z)>;
+/ {
+    // -------------------------------------------------------------------------
+    // Macros: send a romaji sequence as HID key taps.
+    // The IME on the PC converts the sequence to kana.
+    // -------------------------------------------------------------------------
+    macros {
+        // "ka" -> か
+        kana_ka: kana_ka {
+            label = "KANA_KA";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp K>, <&kp A>;
+        };
+
+        // "ga" -> が, then return to L0 (consume the shift-armed state)
+        kana_ga: kana_ga {
+            label = "KANA_GA";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp G>, <&kp A>, <&to 0>;
         };
     };
 
+    // -------------------------------------------------------------------------
+    // Combos:
+    //   layers = <N>  means the combo only fires while layer N is the
+    //                 highest-active layer.
+    // -------------------------------------------------------------------------
+    combos {
+        compatible = "zmk,combos";
+
+        // 0x21 on default layer: "か"
+        combo_ka {
+            timeout-ms = <100>;
+            key-positions = <2 7>;
+            layers = <0>;
+            bindings = <&kana_ka>;
+        };
+
+        // 0x21 on shift-armed layer: "が" then return to L0
+        combo_ga {
+            timeout-ms = <100>;
+            key-positions = <2 7>;
+            layers = <1>;
+            bindings = <&kana_ga>;
+        };
+
+        // 0x01 on default layer: arm shift (jump to L1)
+        combo_arm_shift {
+            timeout-ms = <100>;
+            key-positions = <7>;
+            layers = <0>;
+            bindings = <&to 1>;
+        };
+
+        // 0x0E on shift-armed layer: cancel (return to L0)
+        // Note: 0x0E is Esc in the full spec, but we treat it as
+        //       "cancel only" here. The full Esc behavior will be
+        //       added in the main implementation.
+        combo_cancel {
+            timeout-ms = <100>;
+            key-positions = <4 5 6>;
+            layers = <1>;
+            bindings = <&to 0>;
+        };
+    };
+
+    // -------------------------------------------------------------------------
+    // Keymap layers:
+    //   L0 = default
+    //   L1 = shift-armed (only macro/combos defined for L1 take effect)
+    //
+    // The 8 base bindings are placeholders. With the combos above,
+    // pressing the configured chord patterns will fire the combo,
+    // not these base bindings. We keep the same a/b/c/d/1/2/3/4 layout
+    // as the bringup so a single key tap still produces a recognizable
+    // character (useful for individual key debugging).
+    // -------------------------------------------------------------------------
     keymap {
         compatible = "zmk,keymap";
 
@@ -22,6 +104,17 @@
             bindings = <
                 &kp A   &kp B   &kp C   &kp D
                 &kp N1  &kp N2  &kp N3  &kp N4
+            >;
+        };
+
+        shift_armed_layer {
+            // While armed, single key presses are suppressed (mapped to &none)
+            // so that only chords are interpreted. This avoids accidental
+            // a/b/c/d output if the user releases other keys slightly later
+            // than the intended chord.
+            bindings = <
+                &none  &none  &none  &none
+                &none  &none  &none  &none
             >;
         };
     };
