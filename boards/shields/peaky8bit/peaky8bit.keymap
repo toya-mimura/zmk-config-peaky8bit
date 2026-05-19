@@ -3,25 +3,27 @@
 #include <dt-bindings/zmk/bt.h>
 
 // =============================================================================
-// Peaky 8-bit minimal test keymap
-// Goal: verify that the chord -> macro + layer-arming approach works.
+// Peaky 8-bit minimal test keymap (v0.3 spec, revision 2)
+// Goal: verify chord -> macro + layer-arming approach works.
+//
+// All combos use >=2 keys so that no chord is triggered by a single keypress.
 //
 // Test chords:
-//   0x21 (bit 0010 0001) = pos 2 + pos 7  -> "か" (ka) on L0, "が" (ga) on L1
-//   0x01 (bit 0000 0001) = pos 7           -> arm L1 (shift)
-//   0x0E (bit 0000 1110) = pos 4+5+6       -> cancel back to L0
+//   0x21 (bit 0010 0001) = pos 2 + pos 7      -> "か" on L0, "が" on L1
+//   0x88 (bit 1000 1000) = pos 0 + pos 4      -> arm L1 (shift)  [NEW]
+//   0x0E (bit 0000 1110) = pos 4 + 5 + 6      -> cancel back to L0
 //
-// Key-position to bit mapping (confirmed):
+// Key-position to bit mapping:
 //   Left  (central):    pos 0=bit7, pos 1=bit6, pos 2=bit5, pos 3=bit4
 //   Right (peripheral): pos 4=bit3, pos 5=bit2, pos 6=bit1, pos 7=bit0
 //
 // PC side prerequisite for this test:
-//   IME ON + romaji input mode (so that "ka" -> か, "ga" -> が)
+//   IME ON + romaji input mode (so "ka" -> か, "ga" -> が)
 // =============================================================================
 
 / {
     // -------------------------------------------------------------------------
-    // Macros: send a romaji sequence as HID key taps.
+    // Macros: send romaji sequences as HID key taps.
     // The IME on the PC converts the sequence to kana.
     // -------------------------------------------------------------------------
     macros {
@@ -46,12 +48,15 @@
     // Combos:
     //   layers = <N>  means the combo only fires while layer N is the
     //                 highest-active layer.
+    //
+    // IMPORTANT: every combo uses 2 or more key-positions.
+    //            single-key chords are deliberately NOT used.
     // -------------------------------------------------------------------------
     combos {
         compatible = "zmk,combos";
 
         // 0x21 on default layer: "か"
-        combo_ka {
+        combo_ka_l0 {
             timeout-ms = <100>;
             key-positions = <2 7>;
             layers = <0>;
@@ -59,25 +64,26 @@
         };
 
         // 0x21 on shift-armed layer: "が" then return to L0
-        combo_ga {
+        combo_ka_l1 {
             timeout-ms = <100>;
             key-positions = <2 7>;
             layers = <1>;
             bindings = <&kana_ga>;
         };
 
-        // 0x01 on default layer: arm shift (jump to L1)
+        // 0x88 on default layer: arm shift (jump to L1)
+        // physical: left SW1 + right SW1
         combo_arm_shift {
             timeout-ms = <100>;
-            key-positions = <7>;
+            key-positions = <0 4>;
             layers = <0>;
             bindings = <&to 1>;
         };
 
         // 0x0E on shift-armed layer: cancel (return to L0)
-        // Note: 0x0E is Esc in the full spec, but we treat it as
-        //       "cancel only" here. The full Esc behavior will be
-        //       added in the main implementation.
+        // physical: right SW1 + SW2 + SW3
+        // Note: in the full spec 0x0E is Esc, but here we use it
+        //       as "cancel only" while L1 is active.
         combo_cancel {
             timeout-ms = <100>;
             key-positions = <4 5 6>;
@@ -89,13 +95,10 @@
     // -------------------------------------------------------------------------
     // Keymap layers:
     //   L0 = default
-    //   L1 = shift-armed (only macro/combos defined for L1 take effect)
+    //   L1 = shift-armed
     //
-    // The 8 base bindings are placeholders. With the combos above,
-    // pressing the configured chord patterns will fire the combo,
-    // not these base bindings. We keep the same a/b/c/d/1/2/3/4 layout
-    // as the bringup so a single key tap still produces a recognizable
-    // character (useful for individual key debugging).
+    // The 8 base bindings are kept as a/b/c/d/1/2/3/4 so individual
+    // key presses still produce visible output during debugging.
     // -------------------------------------------------------------------------
     keymap {
         compatible = "zmk,keymap";
@@ -108,10 +111,8 @@
         };
 
         shift_armed_layer {
-            // While armed, single key presses are suppressed (mapped to &none)
-            // so that only chords are interpreted. This avoids accidental
-            // a/b/c/d output if the user releases other keys slightly later
-            // than the intended chord.
+            // While armed, single key presses are suppressed (&none)
+            // so that only chords are interpreted.
             bindings = <
                 &none  &none  &none  &none
                 &none  &none  &none  &none
