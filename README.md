@@ -95,7 +95,7 @@ A single chord can output a full Japanese syllable (e.g. 0x21 = "ka" → か), a
 ## Links
 
 - 📝 **Build log & updates:** [toya-works on Substack](https://toyamimura.substack.com/s/peaky-8-bit)
-- 💬 **Original announcement:** [r/ErgoMechKeyboards on Reddit](https://www.reddit.com/r/ErgoMechKeyboards/)
+- 💬 **Original announcement:** [r/ErgoMechKeyboards on Reddit](https://www.reddit.com/r/ErgoMechKeyboards/comments/1tkf39y/wip_building_a_handheld_8key_chording_keyboard_to/)
 - ☕ **Support this project:** [Buy Me a Coffee](https://buymeacoffee.com/toyaworks)
 
 ## PCB Manufacturing
