@@ -23,7 +23,7 @@ Action syntax (in CSV cells):
     key:XXX        -> single HID key (e.g. key:TAB, key:BSPC, key:RET, key:F1, key:UP)
     keys:K1+K2     -> simultaneous press (e.g. keys:LSHIFT+TAB)
     mod:Shift      -> arm a modifier layer (Shift / Ctrl / Alt / Shift+Ctrl / Shift+Alt / Ctrl+Alt / Shift+Ctrl+Alt)
-    ime            -> IME on/off toggle (sends INT5 = hankaku/zenkaku)
+    ime            -> IME on/off toggle (sends Alt+` for US layout + MS-IME)
     (empty)        -> no action
 """
 
@@ -225,8 +225,11 @@ def macro_for_action(action: Action, name: str, return_to_default: bool) -> Macr
         return None
 
     elif action.kind == "ime":
-        # MS-IME on Windows: International5 (半角/全角)
-        bindings.append("&kp INT5")
+        # US layout + MS-IME: Alt+` toggles IME on/off ("あ" <-> "A").
+        # NOTE: v0.3 spec originally said INT5 (hankaku/zenkaku), but HID
+        # International5 is actually Muhenkan, whose default behaviour is
+        # the kana-width cycle (あ→ア→ｱ). Fixed 2026-06-10.
+        bindings.append("&kp LA(GRAVE)")
 
     if return_to_default:
         bindings.append("&to 0")
