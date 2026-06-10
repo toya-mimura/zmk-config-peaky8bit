@@ -222,13 +222,13 @@
             label = "M_H_1F";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp INT5>;
+            bindings = <&kp LA(GRAVE)>;
         };
         m_s_1f: m_s_1f {
             label = "M_S_1F";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp INT5>, <&to 0>;
+            bindings = <&kp LA(GRAVE)>, <&to 0>;
         };
         m_h_21: m_h_21 {
             label = "M_H_21";
