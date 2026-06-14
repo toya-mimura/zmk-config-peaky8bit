@@ -23,6 +23,8 @@ Action syntax (in CSV cells):
     key:XXX        -> single HID key (e.g. key:TAB, key:BSPC, key:RET, key:F1, key:UP)
     keys:K1+K2     -> simultaneous press (e.g. keys:LSHIFT+TAB)
     mod:Shift      -> arm a modifier layer (Shift / Ctrl / Alt / Shift+Ctrl / Shift+Alt / Ctrl+Alt / Shift+Ctrl+Alt)
+    bt:SEL0..SEL4  -> select Bluetooth profile 0-4
+    bt:CLR         -> clear current Bluetooth profile bond
     ime            -> IME on/off toggle (sends Alt+` for US layout + MS-IME)
     (empty)        -> no action
 """
@@ -85,6 +87,19 @@ MOD_TO_LAYER = {
     "Shift+Alt":        LAYER_SHIFT_ALT,
     "Ctrl+Alt":         LAYER_CTRL_ALT,
     "Shift+Ctrl+Alt":   LAYER_SHIFT_CTRL_ALT,
+}
+
+
+# -----------------------------------------------------------------------------
+# Bluetooth profile mapping
+# -----------------------------------------------------------------------------
+BT_ACTIONS = {
+    "SEL0": "&bt BT_SEL 0",
+    "SEL1": "&bt BT_SEL 1",
+    "SEL2": "&bt BT_SEL 2",
+    "SEL3": "&bt BT_SEL 3",
+    "SEL4": "&bt BT_SEL 4",
+    "CLR":  "&bt BT_CLR",
 }
 
 
@@ -162,8 +177,8 @@ def char_to_kp_binding(ch: str) -> str:
 @dataclass
 class Action:
     """Parsed action from a CSV cell."""
-    kind: str       # "write" | "key" | "keys" | "mod" | "ime" | "none"
-    payload: str    # "ka" / "TAB" / "LSHIFT+TAB" / "Shift" / ""
+    kind: str       # "write" | "key" | "keys" | "mod" | "bt" | "ime" | "none"
+    payload: str    # "ka" / "TAB" / "LSHIFT+TAB" / "Shift" / "SEL0" / ""
 
 def parse_action(cell: str) -> Action:
     cell = cell.strip()
@@ -177,6 +192,8 @@ def parse_action(cell: str) -> Action:
         return Action("keys", cell[len("keys:"):])
     if cell.startswith("mod:"):
         return Action("mod", cell[len("mod:"):])
+    if cell.startswith("bt:"):
+        return Action("bt", cell[len("bt:"):])
     if cell == "ime":
         return Action("ime", "")
     raise ValueError(f"Unrecognised action: {cell!r}")
@@ -216,19 +233,17 @@ def macro_for_action(action: Action, name: str, return_to_default: bool) -> Macr
         elif len(parts) == 2 and parts[0] in ("LGUI", "RGUI"):
             bindings.append(f"&kp LG({parts[1]})")
         else:
-            # Fallback: macro_press all, macro_release all
             raise ValueError(f"Complex keys: not yet supported: {action.payload}")
 
     elif action.kind == "mod":
-        # mod actions don't generate a regular macro; they're handled as &to <layer>
-        # directly in combo bindings. Return None.
+        # mod actions are handled as &to <layer> directly in combo bindings.
+        return None
+
+    elif action.kind == "bt":
+        # bt actions are handled as direct &bt bindings in combos.
         return None
 
     elif action.kind == "ime":
-        # US layout + MS-IME: Alt+` toggles IME on/off ("あ" <-> "A").
-        # NOTE: v0.3 spec originally said INT5 (hankaku/zenkaku), but HID
-        # International5 is actually Muhenkan, whose default behaviour is
-        # the kana-width cycle (あ→ア→ｱ). Fixed 2026-06-10.
         bindings.append("&kp LA(GRAVE)")
 
     if return_to_default:
@@ -261,8 +276,6 @@ class GeneratedKeymap:
 def generate(rows: list[dict]) -> GeneratedKeymap:
     g = GeneratedKeymap()
 
-    # Pre-pass: figure out which mod actions exist so we can route to layers.
-
     for row in rows:
         hex_str = row["hex"].strip()
         if not hex_str:
@@ -285,6 +298,10 @@ def generate(rows: list[dict]) -> GeneratedKeymap:
             # mod arm: &to <layer>
             target_layer = MOD_TO_LAYER[layer1.payload]
             g.add_combo(positions, LAYER_DEFAULT, f"&to {target_layer}")
+        elif layer1.kind == "bt":
+            # Bluetooth action: direct binding, no macro needed
+            bt_binding = BT_ACTIONS[layer1.payload]
+            g.add_combo(positions, LAYER_DEFAULT, bt_binding)
         elif layer1.kind != "none":
             macro_name = f"m_h_{hex_val:02x}"
             macro = macro_for_action(layer1, macro_name, return_to_default=False)
@@ -316,7 +333,6 @@ def generate(rows: list[dict]) -> GeneratedKeymap:
     esc_positions = hex_to_positions(0x0E)
     for armed in (LAYER_SHIFT, LAYER_CTRL, LAYER_ALT,
                   LAYER_SHIFT_CTRL, LAYER_SHIFT_ALT, LAYER_CTRL_ALT):
-        # Only add if not already defined by the CSV
         key = (tuple(esc_positions), armed)
         if key not in g.combos:
             g.add_combo(esc_positions, armed, "&to 0")
@@ -362,7 +378,6 @@ def emit(g: GeneratedKeymap) -> str:
     # ---- combos ----
     out.append("    combos {")
     out.append('        compatible = "zmk,combos";')
-    # sort by layer then by positions for stable diff
     sorted_keys = sorted(g.combos.keys(), key=lambda k: (k[1], k[0]))
     for key in sorted_keys:
         positions, layer = key
@@ -381,7 +396,6 @@ def emit(g: GeneratedKeymap) -> str:
     # ---- keymap layers ----
     out.append("    keymap {")
     out.append('        compatible = "zmk,keymap";')
-    # L0: a/b/c/d/1/2/3/4 (debug-friendly base)
     out.append("""\
         default_layer {
             bindings = <
@@ -389,7 +403,6 @@ def emit(g: GeneratedKeymap) -> str:
                 &kp N1  &kp N2  &kp N3  &kp N4
             >;
         };""")
-    # L1..L7: all &none (only combos work in armed layers)
     for layer_id in range(1, 8):
         out.append(f"""\
         {LAYER_NAMES[layer_id]} {{
