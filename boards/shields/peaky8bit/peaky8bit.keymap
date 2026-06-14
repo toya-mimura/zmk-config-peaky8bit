@@ -1542,6 +1542,42 @@
             layers = <0>;
             bindings = <&m_h_d0>;
         };
+        c_l0_0_1_4_7 {
+            timeout-ms = <100>;
+            key-positions = <0 1 4 7>;
+            layers = <0>;
+            bindings = <&bt BT_CLR>;
+        };
+        c_l0_0_1_5 {
+            timeout-ms = <100>;
+            key-positions = <0 1 5>;
+            layers = <0>;
+            bindings = <&bt BT_SEL 3>;
+        };
+        c_l0_0_1_5_7 {
+            timeout-ms = <100>;
+            key-positions = <0 1 5 7>;
+            layers = <0>;
+            bindings = <&bt BT_SEL 4>;
+        };
+        c_l0_0_1_6 {
+            timeout-ms = <100>;
+            key-positions = <0 1 6>;
+            layers = <0>;
+            bindings = <&bt BT_SEL 1>;
+        };
+        c_l0_0_1_6_7 {
+            timeout-ms = <100>;
+            key-positions = <0 1 6 7>;
+            layers = <0>;
+            bindings = <&bt BT_SEL 2>;
+        };
+        c_l0_0_1_7 {
+            timeout-ms = <100>;
+            key-positions = <0 1 7>;
+            layers = <0>;
+            bindings = <&bt BT_SEL 0>;
+        };
         c_l0_0_2 {
             timeout-ms = <100>;
             key-positions = <0 2>;
