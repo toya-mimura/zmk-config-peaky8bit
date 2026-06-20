@@ -100,7 +100,11 @@ A single chord can output a full Japanese syllable (e.g. 0x21 = "ka" → か), a
 
 ## PCB Manufacturing
 
-PCBs for this project are sponsored by **[PCBWay](https://www.pcbway.com/)**.
+The v2.0 PCBs for this project are manufactured and assembled by **[PCBWay](https://www.pcbway.com/)**. PCBWay handled the board fabrication and SMT soldering for the passive components (bypass caps and diode), with a clean matte-green finish and solid GND fill. The [KiCad plugin](https://www.pcbway.com/blog/News/PCBWay_Plug_In_for_KiCad_3ea6219c.html) made uploading Gerber files and BOM straightforward.
+
+For a detailed walkthrough of the ordering process and unboxing, see the [build log on Substack](https://toyamimura.substack.com/s/peaky-8-bit).
+
+Gerber files, BOM, and pick-and-place files are available in [`hardware/v2.0_pcbway_2026_0601/`](hardware/v2.0_pcbway_2026_0601/). See the readme.txt inside for important notes on which components to include in SMT assembly orders.
 
 ## License
 
