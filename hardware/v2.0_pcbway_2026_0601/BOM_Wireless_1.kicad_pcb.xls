@@ -1,0 +1,10 @@
+﻿Designator,Quantity,Value,Footprint,Package,MPN,DNP,Mount_Type,Description,KiLib_Generator,Sim.Device,Sim.Type,Sim.Pins
+BT1,1,Battery_Cell,PinHeader_1x02_P2.54mm_Vertical,,,,tht,Single-cell battery,connector/pin_header_socket,V,DC,1=+ 2=-
+C1,1,0.1uF,C_0603_1608Metric,,,,smt,Unpolarized capacitor,SMD_2terminal_chip_molded,,,
+C2,1,10uF,C_0603_1608Metric,,,,smt,Unpolarized capacitor,SMD_2terminal_chip_molded,,,
+D1,1,SS14,D_SMA,,,,smt,Schottky diode,,,,
+J1,1,Conn_01x03,PinHeader_1x03_P2.54mm_Vertical,,,,tht,"Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)",connector/pin_header_socket,,,
+"SW1, SW2, SW3, SW4",4,SW_Push,SW_Cherry_MX_1.00u_PCB,,,,tht,"Push button switch, generic, two pins",,,,
+SW5,1,SW_SPDT,SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm,,,,tht,"Switch, single pole double throw",,,,
+SW6,1,SW_Push,SW_PUSH_6mm,,,,tht,"Push button switch, generic, two pins",,,,
+U1,1,XIAO-nRF52840-DIP,XIAO-nRF52840-DIP,,,,smt,,,,,
