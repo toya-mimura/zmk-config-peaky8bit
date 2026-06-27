@@ -32,6 +32,12 @@
             #binding-cells = <0>;
             bindings = <&kp SPACE>;
         };
+        m_h_0d: m_h_0d {
+            label = "M_H_0D";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp K_APP>;
+        };
         m_h_0e: m_h_0e {
             label = "M_H_0E";
             compatible = "zmk,behavior-macro";
@@ -56,6 +62,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(A)>, <&to 0>;
         };
+        m_c_11: m_c_11 {
+            label = "M_C_11";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(A)>, <&to 0>;
+        };
         m_h_12: m_h_12 {
             label = "M_H_12";
             compatible = "zmk,behavior-macro";
@@ -67,6 +79,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(B)>, <&to 0>;
+        };
+        m_c_12: m_c_12 {
+            label = "M_C_12";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(B)>, <&to 0>;
         };
         m_h_13: m_h_13 {
             label = "M_H_13";
@@ -80,6 +98,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(C)>, <&to 0>;
         };
+        m_c_13: m_c_13 {
+            label = "M_C_13";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(C)>, <&to 0>;
+        };
         m_h_14: m_h_14 {
             label = "M_H_14";
             compatible = "zmk,behavior-macro";
@@ -91,6 +115,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(D)>, <&to 0>;
+        };
+        m_c_14: m_c_14 {
+            label = "M_C_14";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(D)>, <&to 0>;
         };
         m_h_15: m_h_15 {
             label = "M_H_15";
@@ -104,6 +134,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(E)>, <&to 0>;
         };
+        m_c_15: m_c_15 {
+            label = "M_C_15";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(E)>, <&to 0>;
+        };
         m_h_16: m_h_16 {
             label = "M_H_16";
             compatible = "zmk,behavior-macro";
@@ -115,6 +151,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(F)>, <&to 0>;
+        };
+        m_c_16: m_c_16 {
+            label = "M_C_16";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(F)>, <&to 0>;
         };
         m_h_17: m_h_17 {
             label = "M_H_17";
@@ -128,6 +170,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(G)>, <&to 0>;
         };
+        m_c_17: m_c_17 {
+            label = "M_C_17";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(G)>, <&to 0>;
+        };
         m_h_18: m_h_18 {
             label = "M_H_18";
             compatible = "zmk,behavior-macro";
@@ -139,6 +187,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(H)>, <&to 0>;
+        };
+        m_c_18: m_c_18 {
+            label = "M_C_18";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(H)>, <&to 0>;
         };
         m_h_19: m_h_19 {
             label = "M_H_19";
@@ -152,6 +206,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(I)>, <&to 0>;
         };
+        m_c_19: m_c_19 {
+            label = "M_C_19";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(I)>, <&to 0>;
+        };
         m_h_1a: m_h_1a {
             label = "M_H_1A";
             compatible = "zmk,behavior-macro";
@@ -163,6 +223,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(J)>, <&to 0>;
+        };
+        m_c_1a: m_c_1a {
+            label = "M_C_1A";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(J)>, <&to 0>;
         };
         m_h_1b: m_h_1b {
             label = "M_H_1B";
@@ -176,6 +242,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(K)>, <&to 0>;
         };
+        m_c_1b: m_c_1b {
+            label = "M_C_1B";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(K)>, <&to 0>;
+        };
         m_h_1c: m_h_1c {
             label = "M_H_1C";
             compatible = "zmk,behavior-macro";
@@ -188,6 +260,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(L)>, <&to 0>;
         };
+        m_c_1c: m_c_1c {
+            label = "M_C_1C";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(L)>, <&to 0>;
+        };
         m_h_1d: m_h_1d {
             label = "M_H_1D";
             compatible = "zmk,behavior-macro";
@@ -199,6 +277,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(M)>, <&to 0>;
+        };
+        m_c_1d: m_c_1d {
+            label = "M_C_1D";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(M)>, <&to 0>;
         };
         m_h_1e: m_h_1e {
             label = "M_H_1E";
@@ -236,6 +320,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(N)>, <&to 0>;
         };
+        m_c_21: m_c_21 {
+            label = "M_C_21";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(N)>, <&to 0>;
+        };
         m_h_22: m_h_22 {
             label = "M_H_22";
             compatible = "zmk,behavior-macro";
@@ -247,6 +337,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(O)>, <&to 0>;
+        };
+        m_c_22: m_c_22 {
+            label = "M_C_22";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(O)>, <&to 0>;
         };
         m_h_23: m_h_23 {
             label = "M_H_23";
@@ -260,6 +356,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(P)>, <&to 0>;
         };
+        m_c_23: m_c_23 {
+            label = "M_C_23";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(P)>, <&to 0>;
+        };
         m_h_24: m_h_24 {
             label = "M_H_24";
             compatible = "zmk,behavior-macro";
@@ -271,6 +373,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(Q)>, <&to 0>;
+        };
+        m_c_24: m_c_24 {
+            label = "M_C_24";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(Q)>, <&to 0>;
         };
         m_h_25: m_h_25 {
             label = "M_H_25";
@@ -284,6 +392,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(R)>, <&to 0>;
         };
+        m_c_25: m_c_25 {
+            label = "M_C_25";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(R)>, <&to 0>;
+        };
         m_h_26: m_h_26 {
             label = "M_H_26";
             compatible = "zmk,behavior-macro";
@@ -295,6 +409,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(S)>, <&to 0>;
+        };
+        m_c_26: m_c_26 {
+            label = "M_C_26";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(S)>, <&to 0>;
         };
         m_h_27: m_h_27 {
             label = "M_H_27";
@@ -308,6 +428,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(T)>, <&to 0>;
         };
+        m_c_27: m_c_27 {
+            label = "M_C_27";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(T)>, <&to 0>;
+        };
         m_h_28: m_h_28 {
             label = "M_H_28";
             compatible = "zmk,behavior-macro";
@@ -319,6 +445,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(U)>, <&to 0>;
+        };
+        m_c_28: m_c_28 {
+            label = "M_C_28";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(U)>, <&to 0>;
         };
         m_h_29: m_h_29 {
             label = "M_H_29";
@@ -332,6 +464,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(V)>, <&to 0>;
         };
+        m_c_29: m_c_29 {
+            label = "M_C_29";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(V)>, <&to 0>;
+        };
         m_h_2a: m_h_2a {
             label = "M_H_2A";
             compatible = "zmk,behavior-macro";
@@ -343,6 +481,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(W)>, <&to 0>;
+        };
+        m_c_2a: m_c_2a {
+            label = "M_C_2A";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(W)>, <&to 0>;
         };
         m_h_2b: m_h_2b {
             label = "M_H_2B";
@@ -356,6 +500,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(X)>, <&to 0>;
         };
+        m_c_2b: m_c_2b {
+            label = "M_C_2B";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(X)>, <&to 0>;
+        };
         m_h_2c: m_h_2c {
             label = "M_H_2C";
             compatible = "zmk,behavior-macro";
@@ -368,6 +518,12 @@
             #binding-cells = <0>;
             bindings = <&kp LS(Y)>, <&to 0>;
         };
+        m_c_2c: m_c_2c {
+            label = "M_C_2C";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(Y)>, <&to 0>;
+        };
         m_h_2d: m_h_2d {
             label = "M_H_2D";
             compatible = "zmk,behavior-macro";
@@ -379,6 +535,12 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(Z)>, <&to 0>;
+        };
+        m_c_2d: m_c_2d {
+            label = "M_C_2D";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(Z)>, <&to 0>;
         };
         m_h_2e: m_h_2e {
             label = "M_H_2E";
@@ -1392,6 +1554,12 @@
             layers = <0>;
             bindings = <&m_h_0f>;
         };
+        c_l0_4_5_7 {
+            timeout-ms = <100>;
+            key-positions = <4 5 7>;
+            layers = <0>;
+            bindings = <&m_h_0d>;
+        };
         c_l0_4_6 {
             timeout-ms = <100>;
             key-positions = <4 6>;
@@ -1811,6 +1979,162 @@
             key-positions = <4 5 6>;
             layers = <1>;
             bindings = <&to 0>;
+        };
+        c_l2_2_4 {
+            timeout-ms = <100>;
+            key-positions = <2 4>;
+            layers = <2>;
+            bindings = <&m_c_28>;
+        };
+        c_l2_2_4_5 {
+            timeout-ms = <100>;
+            key-positions = <2 4 5>;
+            layers = <2>;
+            bindings = <&m_c_2c>;
+        };
+        c_l2_2_4_5_7 {
+            timeout-ms = <100>;
+            key-positions = <2 4 5 7>;
+            layers = <2>;
+            bindings = <&m_c_2d>;
+        };
+        c_l2_2_4_6 {
+            timeout-ms = <100>;
+            key-positions = <2 4 6>;
+            layers = <2>;
+            bindings = <&m_c_2a>;
+        };
+        c_l2_2_4_6_7 {
+            timeout-ms = <100>;
+            key-positions = <2 4 6 7>;
+            layers = <2>;
+            bindings = <&m_c_2b>;
+        };
+        c_l2_2_4_7 {
+            timeout-ms = <100>;
+            key-positions = <2 4 7>;
+            layers = <2>;
+            bindings = <&m_c_29>;
+        };
+        c_l2_2_5 {
+            timeout-ms = <100>;
+            key-positions = <2 5>;
+            layers = <2>;
+            bindings = <&m_c_24>;
+        };
+        c_l2_2_5_6 {
+            timeout-ms = <100>;
+            key-positions = <2 5 6>;
+            layers = <2>;
+            bindings = <&m_c_26>;
+        };
+        c_l2_2_5_6_7 {
+            timeout-ms = <100>;
+            key-positions = <2 5 6 7>;
+            layers = <2>;
+            bindings = <&m_c_27>;
+        };
+        c_l2_2_5_7 {
+            timeout-ms = <100>;
+            key-positions = <2 5 7>;
+            layers = <2>;
+            bindings = <&m_c_25>;
+        };
+        c_l2_2_6 {
+            timeout-ms = <100>;
+            key-positions = <2 6>;
+            layers = <2>;
+            bindings = <&m_c_22>;
+        };
+        c_l2_2_6_7 {
+            timeout-ms = <100>;
+            key-positions = <2 6 7>;
+            layers = <2>;
+            bindings = <&m_c_23>;
+        };
+        c_l2_2_7 {
+            timeout-ms = <100>;
+            key-positions = <2 7>;
+            layers = <2>;
+            bindings = <&m_c_21>;
+        };
+        c_l2_3_4 {
+            timeout-ms = <100>;
+            key-positions = <3 4>;
+            layers = <2>;
+            bindings = <&m_c_18>;
+        };
+        c_l2_3_4_5 {
+            timeout-ms = <100>;
+            key-positions = <3 4 5>;
+            layers = <2>;
+            bindings = <&m_c_1c>;
+        };
+        c_l2_3_4_5_7 {
+            timeout-ms = <100>;
+            key-positions = <3 4 5 7>;
+            layers = <2>;
+            bindings = <&m_c_1d>;
+        };
+        c_l2_3_4_6 {
+            timeout-ms = <100>;
+            key-positions = <3 4 6>;
+            layers = <2>;
+            bindings = <&m_c_1a>;
+        };
+        c_l2_3_4_6_7 {
+            timeout-ms = <100>;
+            key-positions = <3 4 6 7>;
+            layers = <2>;
+            bindings = <&m_c_1b>;
+        };
+        c_l2_3_4_7 {
+            timeout-ms = <100>;
+            key-positions = <3 4 7>;
+            layers = <2>;
+            bindings = <&m_c_19>;
+        };
+        c_l2_3_5 {
+            timeout-ms = <100>;
+            key-positions = <3 5>;
+            layers = <2>;
+            bindings = <&m_c_14>;
+        };
+        c_l2_3_5_6 {
+            timeout-ms = <100>;
+            key-positions = <3 5 6>;
+            layers = <2>;
+            bindings = <&m_c_16>;
+        };
+        c_l2_3_5_6_7 {
+            timeout-ms = <100>;
+            key-positions = <3 5 6 7>;
+            layers = <2>;
+            bindings = <&m_c_17>;
+        };
+        c_l2_3_5_7 {
+            timeout-ms = <100>;
+            key-positions = <3 5 7>;
+            layers = <2>;
+            bindings = <&m_c_15>;
+        };
+        c_l2_3_6 {
+            timeout-ms = <100>;
+            key-positions = <3 6>;
+            layers = <2>;
+            bindings = <&m_c_12>;
+        };
+        c_l2_3_6_7 {
+            timeout-ms = <100>;
+            key-positions = <3 6 7>;
+            layers = <2>;
+            bindings = <&m_c_13>;
+        };
+        c_l2_3_7 {
+            timeout-ms = <100>;
+            key-positions = <3 7>;
+            layers = <2>;
+            bindings = <&m_c_11>;
         };
         c_l2_4_5_6 {
             timeout-ms = <100>;
