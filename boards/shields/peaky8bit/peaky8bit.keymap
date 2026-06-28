@@ -566,18 +566,6 @@
             #binding-cells = <0>;
             bindings = <&kp EXCL>, <&to 0>;
         };
-        m_h_30: m_h_30 {
-            label = "M_H_30";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp N3>;
-        };
-        m_s_30: m_s_30 {
-            label = "M_S_30";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp F3>, <&to 0>;
-        };
         m_h_31: m_h_31 {
             label = "M_H_31";
             compatible = "zmk,behavior-macro";
@@ -926,65 +914,137 @@
             #binding-cells = <0>;
             bindings = <&kp COLON>, <&to 0>;
         };
-        m_h_50: m_h_50 {
-            label = "M_H_50";
+        m_h_91: m_h_91 {
+            label = "M_H_91";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp N1>;
+        };
+        m_s_91: m_s_91 {
+            label = "M_S_91";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F1>, <&to 0>;
+        };
+        m_h_92: m_h_92 {
+            label = "M_H_92";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp N2>;
+        };
+        m_s_92: m_s_92 {
+            label = "M_S_92";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F2>, <&to 0>;
+        };
+        m_h_93: m_h_93 {
+            label = "M_H_93";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp N3>;
+        };
+        m_s_93: m_s_93 {
+            label = "M_S_93";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F3>, <&to 0>;
+        };
+        m_h_94: m_h_94 {
+            label = "M_H_94";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp N4>;
+        };
+        m_s_94: m_s_94 {
+            label = "M_S_94";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F4>, <&to 0>;
+        };
+        m_h_95: m_h_95 {
+            label = "M_H_95";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp N5>;
         };
-        m_s_50: m_s_50 {
-            label = "M_S_50";
+        m_s_95: m_s_95 {
+            label = "M_S_95";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp F5>, <&to 0>;
         };
-        m_h_60: m_h_60 {
-            label = "M_H_60";
+        m_h_96: m_h_96 {
+            label = "M_H_96";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp N6>;
         };
-        m_s_60: m_s_60 {
-            label = "M_S_60";
+        m_s_96: m_s_96 {
+            label = "M_S_96";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp F6>, <&to 0>;
         };
-        m_h_70: m_h_70 {
-            label = "M_H_70";
+        m_h_97: m_h_97 {
+            label = "M_H_97";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp N7>;
         };
-        m_s_70: m_s_70 {
-            label = "M_S_70";
+        m_s_97: m_s_97 {
+            label = "M_S_97";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp F7>, <&to 0>;
         };
-        m_h_90: m_h_90 {
-            label = "M_H_90";
+        m_h_98: m_h_98 {
+            label = "M_H_98";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp N8>;
+        };
+        m_s_98: m_s_98 {
+            label = "M_S_98";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F8>, <&to 0>;
+        };
+        m_h_99: m_h_99 {
+            label = "M_H_99";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp N9>;
         };
-        m_s_90: m_s_90 {
-            label = "M_S_90";
+        m_s_99: m_s_99 {
+            label = "M_S_99";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp F9>, <&to 0>;
         };
-        m_h_a0: m_h_a0 {
-            label = "M_H_A0";
+        m_h_9a: m_h_9a {
+            label = "M_H_9A";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp N0>;
         };
-        m_s_a0: m_s_a0 {
-            label = "M_S_A0";
+        m_s_9a: m_s_9a {
+            label = "M_S_9A";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp F10>, <&to 0>;
+        };
+        m_s_9b: m_s_9b {
+            label = "M_S_9B";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F11>, <&to 0>;
+        };
+        m_s_9c: m_s_9c {
+            label = "M_S_9C";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp F12>, <&to 0>;
         };
         m_h_b0: m_h_b0 {
             label = "M_H_B0";
@@ -992,23 +1052,11 @@
             #binding-cells = <0>;
             bindings = <&kp UP>;
         };
-        m_s_b0: m_s_b0 {
-            label = "M_S_B0";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp F11>, <&to 0>;
-        };
         m_h_c0: m_h_c0 {
             label = "M_H_C0";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp DOWN>;
-        };
-        m_s_c0: m_s_c0 {
-            label = "M_S_C0";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp F12>, <&to 0>;
         };
         m_h_d0: m_h_d0 {
             label = "M_H_D0";
@@ -1092,23 +1140,71 @@
             layers = <0>;
             bindings = <&bt BT_SEL 0>;
         };
-        c_l0_0_2 {
-            timeout-ms = <100>;
-            key-positions = <0 2>;
-            layers = <0>;
-            bindings = <&m_h_a0>;
-        };
         c_l0_0_2_3 {
             timeout-ms = <100>;
             key-positions = <0 2 3>;
             layers = <0>;
             bindings = <&m_h_b0>;
         };
-        c_l0_0_3 {
+        c_l0_0_3_4 {
             timeout-ms = <100>;
-            key-positions = <0 3>;
+            key-positions = <0 3 4>;
             layers = <0>;
-            bindings = <&m_h_90>;
+            bindings = <&m_h_98>;
+        };
+        c_l0_0_3_4_6 {
+            timeout-ms = <100>;
+            key-positions = <0 3 4 6>;
+            layers = <0>;
+            bindings = <&m_h_9a>;
+        };
+        c_l0_0_3_4_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 4 7>;
+            layers = <0>;
+            bindings = <&m_h_99>;
+        };
+        c_l0_0_3_5 {
+            timeout-ms = <100>;
+            key-positions = <0 3 5>;
+            layers = <0>;
+            bindings = <&m_h_94>;
+        };
+        c_l0_0_3_5_6 {
+            timeout-ms = <100>;
+            key-positions = <0 3 5 6>;
+            layers = <0>;
+            bindings = <&m_h_96>;
+        };
+        c_l0_0_3_5_6_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 5 6 7>;
+            layers = <0>;
+            bindings = <&m_h_97>;
+        };
+        c_l0_0_3_5_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 5 7>;
+            layers = <0>;
+            bindings = <&m_h_95>;
+        };
+        c_l0_0_3_6 {
+            timeout-ms = <100>;
+            key-positions = <0 3 6>;
+            layers = <0>;
+            bindings = <&m_h_92>;
+        };
+        c_l0_0_3_6_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 6 7>;
+            layers = <0>;
+            bindings = <&m_h_93>;
+        };
+        c_l0_0_3_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 7>;
+            layers = <0>;
+            bindings = <&m_h_91>;
         };
         c_l0_0_4 {
             timeout-ms = <100>;
@@ -1151,24 +1247,6 @@
             key-positions = <0 6>;
             layers = <0>;
             bindings = <&to 3>;
-        };
-        c_l0_1_2 {
-            timeout-ms = <100>;
-            key-positions = <1 2>;
-            layers = <0>;
-            bindings = <&m_h_60>;
-        };
-        c_l0_1_2_3 {
-            timeout-ms = <100>;
-            key-positions = <1 2 3>;
-            layers = <0>;
-            bindings = <&m_h_70>;
-        };
-        c_l0_1_3 {
-            timeout-ms = <100>;
-            key-positions = <1 3>;
-            layers = <0>;
-            bindings = <&m_h_50>;
         };
         c_l0_1_4 {
             timeout-ms = <100>;
@@ -1259,12 +1337,6 @@
             key-positions = <1 7>;
             layers = <0>;
             bindings = <&m_h_41>;
-        };
-        c_l0_2_3 {
-            timeout-ms = <100>;
-            key-positions = <2 3>;
-            layers = <0>;
-            bindings = <&m_h_30>;
         };
         c_l0_2_3_4 {
             timeout-ms = <100>;
@@ -1578,47 +1650,77 @@
             layers = <0>;
             bindings = <&m_h_09>;
         };
-        c_l1_0_1 {
+        c_l1_0_3_4 {
             timeout-ms = <100>;
-            key-positions = <0 1>;
+            key-positions = <0 3 4>;
             layers = <1>;
-            bindings = <&m_s_c0>;
+            bindings = <&m_s_98>;
         };
-        c_l1_0_2 {
+        c_l1_0_3_4_5 {
             timeout-ms = <100>;
-            key-positions = <0 2>;
+            key-positions = <0 3 4 5>;
             layers = <1>;
-            bindings = <&m_s_a0>;
+            bindings = <&m_s_9c>;
         };
-        c_l1_0_2_3 {
+        c_l1_0_3_4_6 {
             timeout-ms = <100>;
-            key-positions = <0 2 3>;
+            key-positions = <0 3 4 6>;
             layers = <1>;
-            bindings = <&m_s_b0>;
+            bindings = <&m_s_9a>;
         };
-        c_l1_0_3 {
+        c_l1_0_3_4_6_7 {
             timeout-ms = <100>;
-            key-positions = <0 3>;
+            key-positions = <0 3 4 6 7>;
             layers = <1>;
-            bindings = <&m_s_90>;
+            bindings = <&m_s_9b>;
         };
-        c_l1_1_2 {
+        c_l1_0_3_4_7 {
             timeout-ms = <100>;
-            key-positions = <1 2>;
+            key-positions = <0 3 4 7>;
             layers = <1>;
-            bindings = <&m_s_60>;
+            bindings = <&m_s_99>;
         };
-        c_l1_1_2_3 {
+        c_l1_0_3_5 {
             timeout-ms = <100>;
-            key-positions = <1 2 3>;
+            key-positions = <0 3 5>;
             layers = <1>;
-            bindings = <&m_s_70>;
+            bindings = <&m_s_94>;
         };
-        c_l1_1_3 {
+        c_l1_0_3_5_6 {
             timeout-ms = <100>;
-            key-positions = <1 3>;
+            key-positions = <0 3 5 6>;
             layers = <1>;
-            bindings = <&m_s_50>;
+            bindings = <&m_s_96>;
+        };
+        c_l1_0_3_5_6_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 5 6 7>;
+            layers = <1>;
+            bindings = <&m_s_97>;
+        };
+        c_l1_0_3_5_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 5 7>;
+            layers = <1>;
+            bindings = <&m_s_95>;
+        };
+        c_l1_0_3_6 {
+            timeout-ms = <100>;
+            key-positions = <0 3 6>;
+            layers = <1>;
+            bindings = <&m_s_92>;
+        };
+        c_l1_0_3_6_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 6 7>;
+            layers = <1>;
+            bindings = <&m_s_93>;
+        };
+        c_l1_0_3_7 {
+            timeout-ms = <100>;
+            key-positions = <0 3 7>;
+            layers = <1>;
+            bindings = <&m_s_91>;
         };
         c_l1_1_4 {
             timeout-ms = <100>;
@@ -1709,12 +1811,6 @@
             key-positions = <1 7>;
             layers = <1>;
             bindings = <&m_s_41>;
-        };
-        c_l1_2_3 {
-            timeout-ms = <100>;
-            key-positions = <2 3>;
-            layers = <1>;
-            bindings = <&m_s_30>;
         };
         c_l1_2_3_4 {
             timeout-ms = <100>;
