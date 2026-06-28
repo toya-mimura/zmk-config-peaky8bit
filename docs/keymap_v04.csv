@@ -6,7 +6,6 @@ hex,layer1,with_shift,with_ctrl
 0x0D,key:K_APP,,
 0x0E,key:ESC,,
 0x0F,key:DEL,,
-0x10,write:1,key:F1,
 0x11,write:a,write:A,keys:LCTRL+A
 0x12,write:b,write:B,keys:LCTRL+B
 0x13,write:c,write:C,keys:LCTRL+C
@@ -22,7 +21,6 @@ hex,layer1,with_shift,with_ctrl
 0x1D,write:m,write:M,keys:LCTRL+M
 0x1E,"write:,","write:,",
 0x1F,ime,ime,
-0x20,write:2,key:F2,
 0x21,write:n,write:N,keys:LCTRL+N
 0x22,write:o,write:O,keys:LCTRL+O
 0x23,write:p,write:P,keys:LCTRL+P
@@ -38,7 +36,6 @@ hex,layer1,with_shift,with_ctrl
 0x2D,write:z,write:Z,keys:LCTRL+Z
 0x2E,write:.,write:.,
 0x2F,write:!,write:!,
-0x30,write:3,key:F3,
 0x31,write:?,write:?,
 0x32,write:~,write:~,
 0x33,write:@,write:@,
@@ -54,7 +51,6 @@ hex,layer1,with_shift,with_ctrl
 0x3D,write:\,write:\,
 0x3E,keys:LSHIFT+TAB,,
 0x3F,keys:LCTRL+TAB,,
-0x40,write:4,key:F4,
 0x41,write:&,write:&,
 0x42,write:#,write:#,
 0x43,write:$,write:$,
@@ -70,10 +66,6 @@ hex,layer1,with_shift,with_ctrl
 0x4D,write:>,write:>,
 0x4E,write:;,write:;,
 0x4F,write::,write::,
-0x50,write:5,key:F5,
-0x60,write:6,key:F6,
-0x70,write:7,key:F7,
-0x80,write:8,key:F8,
 0x82,mod:Alt,,
 0x84,mod:Ctrl,,
 0x86,mod:Ctrl+Alt,,
@@ -81,10 +73,20 @@ hex,layer1,with_shift,with_ctrl
 0x8A,mod:Shift+Alt,,
 0x8C,mod:Shift+Ctrl,,
 0x8E,mod:Shift+Ctrl+Alt,,
-0x90,write:9,key:F9,
-0xA0,write:0,key:F10,
-0xB0,key:UP,key:F11,
-0xC0,key:DOWN,key:F12,
+0x91,write:1,key:F1,
+0x92,write:2,key:F2,
+0x93,write:3,key:F3,
+0x94,write:4,key:F4,
+0x95,write:5,key:F5,
+0x96,write:6,key:F6,
+0x97,write:7,key:F7,
+0x98,write:8,key:F8,
+0x99,write:9,key:F9,
+0x9A,write:0,key:F10,
+0x9B,,key:F11,
+0x9C,,key:F12,
+0xB0,key:UP,,
+0xC0,key:DOWN,,
 0xC1,bt:SEL0,,
 0xC2,bt:SEL1,,
 0xC3,bt:SEL2,,
