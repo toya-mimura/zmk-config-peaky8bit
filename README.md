@@ -6,7 +6,7 @@ A handheld, wireless, 8-key chording keyboard for typing on the go — even whil
 
 ## What is this?
 
-Peaky 8-bit is a split wireless keyboard with just 4 keys per hand (8 total). It uses **binary chord input** — pressing combinations of keys simultaneously — to produce 2⁸ = 256 different outputs. That's enough to cover full Japanese (hiragana via romaji) and English text, numbers, symbols, and modifiers.
+Peaky 8-bit is a split wireless keyboard with just 4 keys per hand (8 total). It uses **binary chord input** — pressing combinations of keys simultaneously — to produce 2⁸ = 256 different outputs. That's enough to cover full English text, numbers, symbols, modifiers, and Bluetooth multi-host switching.
 
 Think of it as a handheld input device shaped like VR controllers, designed to let you type without a desk.
 
@@ -33,7 +33,7 @@ Tagged [releases](../../releases) mark stable snapshots with pre-built `.uf2` fi
 
 Built on [ZMK Firmware](https://zmk.dev/) (Zephyr-based, open source).
 
-The entire input system is implemented using ZMK's **combos** feature — each chord pattern maps to a combo that triggers a macro. The keymap currently defines ~230 actions across ~350 combos.
+The entire input system is implemented using ZMK's **combos** feature — each chord pattern maps to a combo that triggers a macro. The keymap currently defines ~180 macros across ~200 combos.
 
 ### Building
 
@@ -48,28 +48,51 @@ Or build locally with the ZMK toolchain — see [ZMK docs](https://zmk.dev/docs/
 
 ### Keymap
 
-The chord-to-character mapping is documented in detail:
+The default keymap targets **US keyboard layout**. The chord-to-character mapping is documented in detail:
 
-- **[Binary Chords Spec v0.3](docs/binary-chords-spec-v0_3.md)** — Full 256-pattern keymap specification
-- **[keymap_v03.csv](docs/keymap_v03.csv)** — Machine-readable keymap data
+- **[keymap_v04.csv](docs/keymap_v04.csv)** — Machine-readable keymap data
 - **[gen_keymap.py](docs/gen_keymap.py)** — Python script that generates the ZMK keymap from the CSV
+- **[Binary Chords Spec v0.3](docs/binary-chords-spec-v0_3.md)** — Original 256-pattern keymap specification (v0.3, for reference)
 
-The keymap is optimized for **Japanese input** (romaji → kana via IME), with a full English alphabet layer. The layout uses a logical structure: Japanese syllable rows (あ行, か行, さ行...) are mapped to binary ranges, making chords easier to memorize.
+#### JIS layout support
+
+If your host PC uses a Japanese keyboard layout (JIS 106/109), regenerate the keymap with the `--layout jis` flag:
+
+```bash
+uv run docs/gen_keymap.py docs/keymap_v04.csv --layout jis > boards/shields/peaky8bit/peaky8bit.keymap
+```
+
+Then push to rebuild the firmware. The CSV stays the same — `gen_keymap.py` translates the intended characters to the correct HID keycodes for each layout.
+
+### Bluetooth multi-host
+
+Peaky 8-bit supports **5 Bluetooth profiles**, allowing you to pair and switch between up to 5 devices (PCs, phones, tablets, etc.) using chord input:
+
+| Chord | Bit pattern | Action |
+|---|---|---|
+| `0xC1` | `1100 0001` | Select profile 0 |
+| `0xC2` | `1100 0010` | Select profile 1 |
+| `0xC3` | `1100 0011` | Select profile 2 |
+| `0xC4` | `1100 0100` | Select profile 3 |
+| `0xC5` | `1100 0101` | Select profile 4 |
+| `0xC9` | `1100 1001` | Clear current profile bond |
+
+To pair a new device: select an empty profile with the corresponding chord, then pair from the new device's Bluetooth settings.
 
 ## Repository Structure
 
 ```
 ├── boards/shields/peaky8bit/   # ZMK shield definition
-│   ├── peaky8bit.keymap        # Generated keymap (combos + macros)
+│   ├── peaky8bit.keymap        # Generated keymap (US layout, combos + macros)
 │   ├── peaky8bit.conf          # ZMK config (combo limits, etc.)
 │   ├── peaky8bit.dtsi          # Common shield definitions
 │   ├── peaky8bit_left.overlay  # Left hand (central) GPIO config
 │   └── peaky8bit_right.overlay # Right hand (peripheral) GPIO config
 ├── docs/
-│   ├── binary-chords-spec-v0_3.md  # Keymap specification
-│   ├── keymap_v03.csv              # Keymap data (CSV)
-│   └── gen_keymap.py               # Keymap generator script
-├── hardware/                   # PCB design files (coming soon)
+│   ├── keymap_v04.csv              # Keymap data (CSV)
+│   ├── gen_keymap.py               # Keymap generator (supports --layout us|jis)
+│   └── binary-chords-spec-v0_3.md  # Original keymap specification
+├── hardware/                   # PCB design files
 ├── case/                       # 3D printable case (coming soon)
 ├── build.yaml                  # GitHub Actions build matrix
 └── config/west.yml             # ZMK west manifest
@@ -90,7 +113,7 @@ Example: pressing left-key1 + right-key1 + right-key2
          = Shift+Ctrl modifier arm
 ```
 
-A single chord can output a full Japanese syllable (e.g. 0x21 = "ka" → か), a control key, a symbol, or arm a modifier for the next chord.
+A single chord can output a letter, a control key, a symbol, or arm a modifier for the next chord.
 
 ## Links
 
