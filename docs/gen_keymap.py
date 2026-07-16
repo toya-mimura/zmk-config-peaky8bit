@@ -7,7 +7,11 @@
 Binary Chords v0.4 keymap generator for ZMK firmware.
 
 Usage:
-    uv run gen_keymap.py keymap_v04.csv > peaky8bit.keymap
+    uv run gen_keymap.py keymap_v04.csv                    # US layout (default)
+    uv run gen_keymap.py keymap_v04.csv --layout jis       # JIS layout
+
+The CSV describes *intended characters*. The --layout flag controls which
+HID keycodes are emitted so the host OS produces the correct character.
 """
 
 from __future__ import annotations
@@ -68,36 +72,86 @@ BT_ACTIONS = {
     "CLR":  "&bt BT_CLR",
 }
 
-CHAR_TO_KP = {
-    "a": "A", "b": "B", "c": "C", "d": "D", "e": "E", "f": "F", "g": "G",
-    "h": "H", "i": "I", "j": "J", "k": "K", "l": "L", "m": "M", "n": "N",
-    "o": "O", "p": "P", "q": "Q", "r": "R", "s": "S", "t": "T", "u": "U",
-    "v": "V", "w": "W", "x": "X", "y": "Y", "z": "Z",
-    "0": "N0", "1": "N1", "2": "N2", "3": "N3", "4": "N4",
-    "5": "N5", "6": "N6", "7": "N7", "8": "N8", "9": "N9",
-    "-": "MINUS", "=": "EQUAL", "[": "LBKT", "]": "RBKT", "\\": "BSLH",
-    ";": "SEMI", "'": "SQT", ",": "COMMA", ".": "DOT", "/": "FSLH",
-    "`": "GRAVE", " ": "SPACE",
+# =============================================================================
+# Character -> ZMK binding mapping (layout-dependent)
+# =============================================================================
+
+# --- US layout ---
+CHAR_TO_BINDING_US: dict[str, str] = {
+    **{c: f"&kp {c.upper()}" for c in "abcdefghijklmnopqrstuvwxyz"},
+    "0": "&kp N0", "1": "&kp N1", "2": "&kp N2", "3": "&kp N3", "4": "&kp N4",
+    "5": "&kp N5", "6": "&kp N6", "7": "&kp N7", "8": "&kp N8", "9": "&kp N9",
+    "-": "&kp MINUS", "=": "&kp EQUAL", "[": "&kp LBKT", "]": "&kp RBKT",
+    "\\": "&kp BSLH", ";": "&kp SEMI", "'": "&kp SQT", ",": "&kp COMMA",
+    ".": "&kp DOT", "/": "&kp FSLH", "`": "&kp GRAVE", " ": "&kp SPACE",
+    "!": "&kp EXCL", "@": "&kp AT", "#": "&kp HASH", "$": "&kp DLLR",
+    "%": "&kp PRCNT", "^": "&kp CARET", "&": "&kp AMPS", "*": "&kp STAR",
+    "(": "&kp LPAR", ")": "&kp RPAR", "_": "&kp UNDER", "+": "&kp PLUS",
+    "{": "&kp LBRC", "}": "&kp RBRC", "|": "&kp PIPE", ":": "&kp COLON",
+    '"': "&kp DQT", "<": "&kp LT", ">": "&kp GT", "?": "&kp QMARK",
+    "~": "&kp TILDE",
+    **{c.upper(): f"&kp LS({c.upper()})" for c in "abcdefghijklmnopqrstuvwxyz"},
 }
 
-CHAR_TO_KP_SHIFTED = {
-    "!": "EXCL", "@": "AT", "#": "HASH", "$": "DLLR", "%": "PRCNT",
-    "^": "CARET", "&": "AMPS", "*": "STAR", "(": "LPAR", ")": "RPAR",
-    "_": "UNDER", "+": "PLUS", "{": "LBRC", "}": "RBRC", "|": "PIPE",
-    ":": "COLON", '"': "DQT", "<": "LT", ">": "GT", "?": "QMARK",
-    "~": "TILDE",
+# --- JIS layout ---
+# On a JIS host, we send the HID code that produces the desired character.
+#
+# JIS key position reference:
+#   LBKT position  -> @ (unshifted), ` (shifted)
+#   RBKT position  -> [ (unshifted), { (shifted)
+#   BSLH position  -> ] (unshifted), } (shifted)
+#   SQT position   -> : (unshifted), * (shifted)
+#   EQUAL position -> ^ (unshifted), ~ (shifted)
+#   GRAVE position -> hankaku/zenkaku (IME toggle, not printable)
+#   INT1 (0x87)    -> \ (unshifted), _ (shifted)  -- "ろ" key
+#   INT3 (0x89)    -> \ (yen sign key)
+#   Shift+2 -> "    Shift+6 -> &    Shift+7 -> '
+#   Shift+8 -> (    Shift+9 -> )
+#   Shift+MINUS -> =    Shift+SEMI -> +
+CHAR_TO_BINDING_JIS: dict[str, str] = {
+    **{c: f"&kp {c.upper()}" for c in "abcdefghijklmnopqrstuvwxyz"},
+    "0": "&kp N0", "1": "&kp N1", "2": "&kp N2", "3": "&kp N3", "4": "&kp N4",
+    "5": "&kp N5", "6": "&kp N6", "7": "&kp N7", "8": "&kp N8", "9": "&kp N9",
+    # Same on JIS and US
+    ",": "&kp COMMA", ".": "&kp DOT", "/": "&kp FSLH", " ": "&kp SPACE",
+    "-": "&kp MINUS", ";": "&kp SEMI",
+    "!": "&kp EXCL", "#": "&kp HASH", "$": "&kp DLLR", "%": "&kp PRCNT",
+    "?": "&kp QMARK", "<": "&kp LT", ">": "&kp GT",
+    # Different on JIS
+    "@": "&kp LBKT",            # @ is at [ position on US
+    "`": "&kp LS(LBKT)",        # ` is at Shift+@ on JIS
+    "[": "&kp RBKT",            # [ is at ] position on US
+    "{": "&kp LS(RBKT)",        # { is at Shift+[ on JIS
+    "]": "&kp BSLH",            # ] is at \ position on US
+    "}": "&kp LS(BSLH)",        # } is at Shift+] on JIS
+    ":": "&kp SQT",             # : is at ' position on US
+    "*": "&kp LS(SQT)",         # * is at Shift+: on JIS
+    "^": "&kp EQUAL",           # ^ is at = position on US
+    "~": "&kp LS(EQUAL)",       # ~ is at Shift+^ on JIS
+    "'": "&kp LS(N7)",          # ' is at Shift+7 on JIS
+    '"': "&kp LS(N2)",          # " is at Shift+2 on JIS
+    "&": "&kp LS(N6)",          # & is at Shift+6 on JIS
+    "(": "&kp LS(N8)",          # ( is at Shift+8 on JIS
+    ")": "&kp LS(N9)",          # ) is at Shift+9 on JIS
+    "=": "&kp LS(MINUS)",       # = is at Shift+- on JIS
+    "+": "&kp LS(SEMI)",        # + is at Shift+; on JIS
+    "\\": "&kp INT1",           # \ is at INT1 (ろ key) on JIS
+    "_": "&kp LS(INT1)",        # _ is at Shift+INT1 on JIS
+    "|": "&kp LS(INT3)",        # | is at Shift+INT3 on JIS
+    **{c.upper(): f"&kp LS({c.upper()})" for c in "abcdefghijklmnopqrstuvwxyz"},
 }
 
-def char_to_kp_binding(ch: str) -> str:
-    if ch in CHAR_TO_KP:
-        return f"&kp {CHAR_TO_KP[ch]}"
-    if ch in CHAR_TO_KP_SHIFTED:
-        return f"&kp {CHAR_TO_KP_SHIFTED[ch]}"
-    if ch.isupper() and ch.lower() in CHAR_TO_KP:
-        return f"&kp LS({CHAR_TO_KP[ch.lower()]})"
-    raise ValueError(f"Unmapped character: {ch!r}")
+
+def get_char_binding(ch: str, layout: str) -> str:
+    table = CHAR_TO_BINDING_JIS if layout == "jis" else CHAR_TO_BINDING_US
+    if ch in table:
+        return table[ch]
+    raise ValueError(f"Unmapped character for {layout} layout: {ch!r}")
 
 
+# =============================================================================
+# Action parsing
+# =============================================================================
 @dataclass
 class Action:
     kind: str
@@ -127,13 +181,13 @@ class Macro:
     name: str
     bindings: list[str]
 
-def macro_for_action(action: Action, name: str, return_to_default: bool) -> Macro | None:
+def macro_for_action(action: Action, name: str, return_to_default: bool, layout: str) -> Macro | None:
     bindings: list[str] = []
     if action.kind == "none":
         return None
     elif action.kind == "write":
         for ch in action.payload:
-            bindings.append(char_to_kp_binding(ch))
+            bindings.append(get_char_binding(ch, layout))
     elif action.kind == "key":
         bindings.append(f"&kp {action.payload}")
     elif action.kind == "keys":
@@ -153,12 +207,20 @@ def macro_for_action(action: Action, name: str, return_to_default: bool) -> Macr
     elif action.kind == "bt":
         return None
     elif action.kind == "ime":
-        bindings.append("&kp LA(GRAVE)")
+        if layout == "jis":
+            # JIS: GRAVE position = 半角/全角 key = IME toggle
+            bindings.append("&kp GRAVE")
+        else:
+            # US: Alt+` for MS-IME toggle
+            bindings.append("&kp LA(GRAVE)")
     if return_to_default:
         bindings.append("&to 0")
     return Macro(name=name, bindings=bindings)
 
 
+# =============================================================================
+# Keymap generation
+# =============================================================================
 @dataclass
 class GeneratedKeymap:
     macros: list[Macro] = field(default_factory=list)
@@ -168,14 +230,14 @@ class GeneratedKeymap:
         if not any(existing.name == m.name for existing in self.macros):
             self.macros.append(m)
 
-    def add_combo(self, positions: list[int], layer: int, binding: str, name_hint: str = ""):
+    def add_combo(self, positions: list[int], layer: int, binding: str):
         key = (tuple(positions), layer)
         if key in self.combos:
             sys.stderr.write(f"WARNING: combo collision at positions={positions} layer={layer}\n")
         self.combos[key] = binding
 
 
-def generate(rows: list[dict]) -> GeneratedKeymap:
+def generate(rows: list[dict], layout: str) -> GeneratedKeymap:
     g = GeneratedKeymap()
     for row in rows:
         hex_str = row["hex"].strip()
@@ -192,28 +254,26 @@ def generate(rows: list[dict]) -> GeneratedKeymap:
         with_ctrl = parse_action(row.get("with_ctrl", ""))
 
         if layer1.kind == "mod":
-            target_layer = MOD_TO_LAYER[layer1.payload]
-            g.add_combo(positions, LAYER_DEFAULT, f"&to {target_layer}")
+            g.add_combo(positions, LAYER_DEFAULT, f"&to {MOD_TO_LAYER[layer1.payload]}")
         elif layer1.kind == "bt":
-            bt_binding = BT_ACTIONS[layer1.payload]
-            g.add_combo(positions, LAYER_DEFAULT, bt_binding)
+            g.add_combo(positions, LAYER_DEFAULT, BT_ACTIONS[layer1.payload])
         elif layer1.kind != "none":
             macro_name = f"m_h_{hex_val:02x}"
-            macro = macro_for_action(layer1, macro_name, return_to_default=False)
+            macro = macro_for_action(layer1, macro_name, return_to_default=False, layout=layout)
             if macro:
                 g.add_macro(macro)
                 g.add_combo(positions, LAYER_DEFAULT, f"&{macro_name}")
 
         if with_shift.kind != "none":
             macro_name = f"m_s_{hex_val:02x}"
-            macro = macro_for_action(with_shift, macro_name, return_to_default=True)
+            macro = macro_for_action(with_shift, macro_name, return_to_default=True, layout=layout)
             if macro:
                 g.add_macro(macro)
                 g.add_combo(positions, LAYER_SHIFT, f"&{macro_name}")
 
         if with_ctrl.kind != "none":
             macro_name = f"m_c_{hex_val:02x}"
-            macro = macro_for_action(with_ctrl, macro_name, return_to_default=True)
+            macro = macro_for_action(with_ctrl, macro_name, return_to_default=True, layout=layout)
             if macro:
                 g.add_macro(macro)
                 g.add_combo(positions, LAYER_CTRL, f"&{macro_name}")
@@ -228,24 +288,18 @@ def generate(rows: list[dict]) -> GeneratedKeymap:
     return g
 
 
-HEADER = """\
-// AUTO-GENERATED by gen_keymap.py — do not edit by hand.
-// Regenerate: uv run gen_keymap.py keymap_v04.csv > peaky8bit.keymap
-
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
-
-/ {
-"""
-
-FOOTER = """\
-};
-"""
-
-
-def emit(g: GeneratedKeymap) -> str:
-    out: list[str] = [HEADER]
+def emit(g: GeneratedKeymap, layout: str) -> str:
+    layout_label = layout.upper()
+    out: list[str] = []
+    out.append(f"// AUTO-GENERATED by gen_keymap.py ({layout_label} layout) — do not edit by hand.")
+    out.append(f"// Regenerate: uv run gen_keymap.py keymap_v04.csv --layout {layout}")
+    out.append("")
+    out.append("#include <behaviors.dtsi>")
+    out.append("#include <dt-bindings/zmk/keys.h>")
+    out.append("#include <dt-bindings/zmk/bt.h>")
+    out.append("")
+    out.append("/ {")
+    out.append("")
     out.append("    macros {")
     for m in g.macros:
         out.append(f"        {m.name}: {m.name} {{")
@@ -291,7 +345,8 @@ def emit(g: GeneratedKeymap) -> str:
             >;
         }};""")
     out.append("    };")
-    out.append(FOOTER)
+    out.append("")
+    out.append("};")
     return "\n".join(out)
 
 
@@ -311,19 +366,44 @@ def diagnose(g: GeneratedKeymap) -> None:
 
 
 def main():
-    if len(sys.argv) != 2:
-        sys.stderr.write("Usage: gen_keymap.py <keymap.csv>\n")
+    args = sys.argv[1:]
+    layout = "us"
+    csv_file = None
+
+    i = 0
+    while i < len(args):
+        if args[i] == "--layout" and i + 1 < len(args):
+            layout = args[i + 1].lower()
+            i += 2
+        elif csv_file is None:
+            csv_file = args[i]
+            i += 1
+        else:
+            sys.stderr.write(f"Unknown argument: {args[i]}\n")
+            sys.exit(1)
+
+    if csv_file is None:
+        sys.stderr.write("Usage: gen_keymap.py <keymap.csv> [--layout us|jis]\n")
         sys.exit(1)
-    csv_path = Path(sys.argv[1])
+
+    if layout not in ("us", "jis"):
+        sys.stderr.write(f"Unknown layout: {layout!r}. Use 'us' or 'jis'.\n")
+        sys.exit(1)
+
+    csv_path = Path(csv_file)
     if not csv_path.exists():
         sys.stderr.write(f"CSV not found: {csv_path}\n")
         sys.exit(1)
+
+    sys.stderr.write(f"Layout: {layout.upper()}\n")
+
     with csv_path.open() as f:
         reader = csv.DictReader(f)
         rows = list(reader)
-    g = generate(rows)
+
+    g = generate(rows, layout)
     diagnose(g)
-    sys.stdout.write(emit(g))
+    sys.stdout.write(emit(g, layout))
 
 
 if __name__ == "__main__":
