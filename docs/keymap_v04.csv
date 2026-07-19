@@ -1,6 +1,5 @@
 hex,layer1,with_shift,with_ctrl
 0x09,key:TAB,,
-0x0A,key:LGUI,,
 0x0B,key:BSPC,,
 0x0C,key:SPACE,,
 0x0D,key:K_APP,,
@@ -96,3 +95,4 @@ hex,layer1,with_shift,with_ctrl
 0xD0,key:LEFT,,
 0xE0,key:RIGHT,,
 0xF0,key:RET,,
+0xFF,key:LGUI,,
