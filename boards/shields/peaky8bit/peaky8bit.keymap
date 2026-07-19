@@ -14,12 +14,6 @@
             #binding-cells = <0>;
             bindings = <&kp TAB>;
         };
-        m_h_0a: m_h_0a {
-            label = "M_H_0A";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LGUI>;
-        };
         m_h_0b: m_h_0b {
             label = "M_H_0B";
             compatible = "zmk,behavior-macro";
@@ -1076,6 +1070,12 @@
             #binding-cells = <0>;
             bindings = <&kp RET>;
         };
+        m_h_ff: m_h_ff {
+            label = "M_H_FF";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LGUI>;
+        };
     };
 
     combos {
@@ -1097,6 +1097,12 @@
             key-positions = <0 1 2 3>;
             layers = <0>;
             bindings = <&m_h_f0>;
+        };
+        c_l0_0_1_2_3_4_5_6_7 {
+            timeout-ms = <100>;
+            key-positions = <0 1 2 3 4 5 6 7>;
+            layers = <0>;
+            bindings = <&m_h_ff>;
         };
         c_l0_0_1_3 {
             timeout-ms = <100>;
@@ -1631,12 +1637,6 @@
             key-positions = <4 5 7>;
             layers = <0>;
             bindings = <&m_h_0d>;
-        };
-        c_l0_4_6 {
-            timeout-ms = <100>;
-            key-positions = <4 6>;
-            layers = <0>;
-            bindings = <&m_h_0a>;
         };
         c_l0_4_6_7 {
             timeout-ms = <100>;
