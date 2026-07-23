@@ -10,6 +10,10 @@ Peaky 8-bit is a split wireless keyboard with just 4 keys per hand (8 total). It
 
 Think of it as a handheld input device shaped like VR controllers, designed to let you type without a desk.
 
+### Want to try chording?
+You can test my custom typing logic on any standard QWERTY keyboard (left hand: `ASDF`, right hand: `JKL;`) with my web app:
+👉 [Peaky 8-bit Web Typing App](https://typing.peaky8bit.fyi/)
+
 👇Here's the latest keymap status:
 ![Latest Keymap](https://github.com/toya-mimura/zmk-config-peaky8bit/blob/main/docs/images/P8-cheatSeat_v040_26-0723-black.png)
 
