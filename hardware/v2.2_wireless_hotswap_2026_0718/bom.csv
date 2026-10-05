@@ -1,8 +1,8 @@
 ﻿Designator,Footprint,Quantity,Value,LCSC Part #
 BT1,PinHeader_1x02_P2.54mm_Vertical,1,Battery_Cell,
-C1,0603,1,0.1uF,
-C2,0603,1,10uF,
-D1,D_SMA,1,SS14,
+C1,0603,1,0.1uF,C14663
+C2,0603,1,10uF,C19702
+D1,D_SMA,1,SS14,C2480
 J1,PinHeader_1x03_P2.54mm_Vertical,1,Conn_01x03,
 "SW1, SW2, SW3, SW4",SW_Hotswap_Kailh_MX_1.00u,4,SW_Push,
 SW5,SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm,1,SW_SPDT,
