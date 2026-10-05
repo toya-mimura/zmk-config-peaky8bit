@@ -30,7 +30,7 @@ Tagged [releases](../../releases) mark stable snapshots with pre-built `.uf2` fi
 | MCU | [Seeed Studio XIAO nRF52840 (Plus)](https://www.seeedstudio.com/XIAO-p-5928.html) × 2 |
 | Switches | Cherry MX compatible × 8 (4 per hand) |
 | Connection | Bluetooth Low Energy (split: left = central, right = peripheral) |
-| Power | 2× AA batteries per hand (no lithium, no charging circuit) |
+| Power | 1× AAA battery per hand + DC-DC boost converter (no lithium, no charging circuit) |
 | PCB | Custom designed, same board for left and right |
 | Case | 3D printed (designed in Blender) |
 
