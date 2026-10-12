@@ -9,9 +9,19 @@ Binary Chords v0.4 keymap generator for ZMK firmware.
 Usage:
     uv run gen_keymap.py keymap_v04.csv                    # US layout (default)
     uv run gen_keymap.py keymap_v04.csv --layout jis       # JIS layout
+    uv run gen_keymap.py keymap_v04.csv --no-hold          # v0.4-style (tap only)
 
 The CSV describes *intended characters*. The --layout flag controls which
 HID keycodes are emitted so the host OS produces the correct character.
+
+Hold-to-repeat (default ON):
+    On the default layer (L0), a chord that sends exactly one key is bound
+    directly to `&kp X` instead of being wrapped in a macro. The key then stays
+    pressed for as long as the chord is held, so the OS key-repeat works
+    (hold the DEL chord -> keeps deleting, hold DOWN -> keeps moving, etc.).
+    Macros are still used for armed layers (they need a trailing `&to 0`)
+    and for IME toggle (repeating it would flip IME on/off rapidly).
+    Pass --no-hold to get the previous tap-only behaviour.
 """
 
 from __future__ import annotations
@@ -237,7 +247,11 @@ class GeneratedKeymap:
         self.combos[key] = binding
 
 
-def generate(rows: list[dict], layout: str) -> GeneratedKeymap:
+# Actions that must stay tap-only on L0 even in hold mode.
+TAP_ONLY_KINDS = {"ime"}
+
+
+def generate(rows: list[dict], layout: str, hold: bool = True) -> GeneratedKeymap:
     g = GeneratedKeymap()
     for row in rows:
         hex_str = row["hex"].strip()
@@ -261,8 +275,12 @@ def generate(rows: list[dict], layout: str) -> GeneratedKeymap:
             macro_name = f"m_h_{hex_val:02x}"
             macro = macro_for_action(layer1, macro_name, return_to_default=False, layout=layout)
             if macro:
-                g.add_macro(macro)
-                g.add_combo(positions, LAYER_DEFAULT, f"&{macro_name}")
+                if hold and len(macro.bindings) == 1 and layer1.kind not in TAP_ONLY_KINDS:
+                    # Single key: bind directly so it is held while the chord is held.
+                    g.add_combo(positions, LAYER_DEFAULT, macro.bindings[0])
+                else:
+                    g.add_macro(macro)
+                    g.add_combo(positions, LAYER_DEFAULT, f"&{macro_name}")
 
         if with_shift.kind != "none":
             macro_name = f"m_s_{hex_val:02x}"
@@ -368,6 +386,7 @@ def diagnose(g: GeneratedKeymap) -> None:
 def main():
     args = sys.argv[1:]
     layout = "us"
+    hold = True
     csv_file = None
 
     i = 0
@@ -375,6 +394,9 @@ def main():
         if args[i] == "--layout" and i + 1 < len(args):
             layout = args[i + 1].lower()
             i += 2
+        elif args[i] == "--no-hold":
+            hold = False
+            i += 1
         elif csv_file is None:
             csv_file = args[i]
             i += 1
@@ -383,7 +405,7 @@ def main():
             sys.exit(1)
 
     if csv_file is None:
-        sys.stderr.write("Usage: gen_keymap.py <keymap.csv> [--layout us|jis]\n")
+        sys.stderr.write("Usage: gen_keymap.py <keymap.csv> [--layout us|jis] [--no-hold]\n")
         sys.exit(1)
 
     if layout not in ("us", "jis"):
@@ -396,12 +418,13 @@ def main():
         sys.exit(1)
 
     sys.stderr.write(f"Layout: {layout.upper()}\n")
+    sys.stderr.write(f"Hold-to-repeat on L0: {'ON' if hold else 'OFF'}\n")
 
     with csv_path.open() as f:
         reader = csv.DictReader(f)
         rows = list(reader)
 
-    g = generate(rows, layout)
+    g = generate(rows, layout, hold=hold)
     diagnose(g)
     sys.stdout.write(emit(g, layout))
 
